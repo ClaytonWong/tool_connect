@@ -1,0 +1,102 @@
+<%= form_with(model: profile, local: true) do |form| %>
+  <% if profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :profile_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username, id: :profile_username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :family_name %>
+    <%= form.text_field :family_name, id: :profile_family_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :middle_names %>
+    <%= form.text_field :middle_names, id: :profile_middle_names %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, id: :profile_first_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_of_birth %>
+    <%= form.date_select :date_of_birth, id: :profile_date_of_birth %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>
+    <%= form.text_field :country, id: :profile_country %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state, id: :profile_state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :postcode %>
+    <%= form.number_field :postcode, id: :profile_postcode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :suburb %>
+    <%= form.text_field :suburb, id: :profile_suburb %>
+  </div>
+
+  <div class="field">
+    <%= form.label :street_address %>
+    <%= form.text_field :street_address, id: :profile_street_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :level %>
+    <%= form.number_field :level, id: :profile_level %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit %>
+    <%= form.text_field :unit, id: :profile_unit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, id: :profile_longitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, id: :profile_latitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ph_num %>
+    <%= form.text_field :ph_num, id: :profile_ph_num %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mob_num %>
+    <%= form.text_field :mob_num, id: :profile_mob_num %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
