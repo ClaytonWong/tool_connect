@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tools</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Cost of hire cents</th>
+      <th>Owner</th>
+      <th>Image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tools.each do |tool| %>
+      <tr>
+        <td><%= tool.name %></td>
+        <td><%= tool.description %></td>
+        <td><%= tool.cost_of_hire_cents %></td>
+        <td><%= tool.owner %></td>
+        <td>
+          <% if tool.image.present? %>
+            <%= image_tag tool.image_url(:thumb) %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Show', tool %></td>
+        <td><%= link_to 'Edit', edit_tool_path(tool) %></td>
+        <td><%= link_to 'Destroy', tool, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tool', new_tool_path %>

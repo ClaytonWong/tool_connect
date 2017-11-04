@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<figure>
+  <% if @tool.image.present? %>
+    <%= image_tag @tool.image_url(:original), alt: "Poster for #{@tool.name}" %>
+  <% else %>
+    <p>No picture</p>
+  <% end %>
+</figure>
+
+<% if ((user_signed_in?) && (@tool.owner_id != current_user.id)) %>
+  <!--<%#= link_to 'hire', new_hiring_path(tool_id: @tool.id), class: 'wide btn btn-warning' %>-->
+  <%= link_to 'Message owner', new_conversation_path(hirer_id: current_user.id, owner_id: @tool.owner.id, tool_id: @tool.id), class: 'wide btn btn-success' %>
+<% end %><p>
+  <strong>Name:</strong>
+  <%= @tool.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @tool.description %>
+</p>
+
+<p>
+  <strong>Cost of hire cents:</strong>
+  <%= @tool.cost_of_hire_cents %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @tool.owner %>
+</p>
+
+<%= link_to 'Edit', edit_tool_path(@tool) %> |
+<%= link_to 'Back', tools_path %>

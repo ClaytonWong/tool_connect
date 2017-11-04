@@ -1,0 +1,46 @@
+<%= form_with(model: tool, local: true) do |form| %>
+  <% if tool.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tool.errors.count, "error") %> prohibited this tool from being saved:</h2>
+
+      <ul>
+      <% tool.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :tool_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :tool_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cost_of_hire_cents %>
+    <%= form.number_field :cost_of_hire_cents, id: :tool_cost_of_hire_cents %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_id %>
+    <%= form.text_field :owner_id, id: :tool_owner_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image, id: :tool_image %>
+  </div>
+
+  <div class="field">
+    remove attachment: <%= form.check_box :remove_image %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
