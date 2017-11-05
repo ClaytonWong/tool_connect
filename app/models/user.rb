@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_one :profile
   has_many :tools
+  has_many :conversations
+  has_many :messages
 end

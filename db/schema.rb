@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104072958) do
+ActiveRecord::Schema.define(version: 20171104114411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "owner_id"
+    t.bigint "hirer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hirer_id"], name: "index_conversations_on_hirer_id"
+    t.index ["owner_id"], name: "index_conversations_on_owner_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "conversation_id"
+    t.bigint "user_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_id"
@@ -67,6 +86,10 @@ ActiveRecord::Schema.define(version: 20171104072958) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "conversations", "users", column: "hirer_id"
+  add_foreign_key "conversations", "users", column: "owner_id"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "tools", "users", column: "owner_id"
 end
