@@ -5,7 +5,6 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.json
   def index
-    #@conversations = Conversation.all
     # Retrive conversations where the hirer is the current user
     hc = Conversation.where(hirer: current_user)
     # Get conversations where the owner is the current user
@@ -32,32 +31,20 @@ class ConversationsController < ApplicationController
   # POST /conversations
   # POST /conversations.json
   def create
-    # Find existing conversations involving current user  & owner of current tool
+    # Find existing conversations involving current user & owner of current tool
     hc = Conversation.where(hirer_id: current_user) 
-    #oc = Conversation.where(owner_id: current_user)
     oc = Conversation.where(owner_id: params[:conversation][:owner_id])
     @con_inter = hc & oc
     
     if (@con_inter.empty? == false)
-        # If conversations involving current user exist,
+        # If conversations involving current user and owner of current tool exist,
         # then go to the first one
         @conversation = @con_inter.first
     else
         # Create a new conversation
         @conversation = Conversation.create!(conversation_params)
     end
-    redirect_to conversation_messages_path(@conversation)
-    #@conversation = Conversation.new(conversation_params)
-  
-    #respond_to do |format|
-    #  if @conversation.save
-    #    format.html { redirect_to @conversation, notice: 'Conversation was successfully created.' }
-    #    format.json { render :show, status: :created, location: @conversation }
-    #  else
-    #    format.html { render :new }
-    #    format.json { render json: @conversation.errors, status: :unprocessable_entity }
-    #  end
-    #end
+    redirect_to conversation_messages_path(@conversation)    
   end
   
   # PATCH/PUT /conversations/1

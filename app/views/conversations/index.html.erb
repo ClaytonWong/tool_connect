@@ -27,12 +27,10 @@
   <% end %>
 </nav>
 
-<!-- 
-Display messages that user is part of, as well as a list of users to message
--->
 <% if @conversations.empty? %>
   <div>"No conversations"</div>
-<% else %>  
+<% else %>
+  <!-- Display conversations that user is part of -->  
   <% @conversations.each do |conversation| %>
     <% if (conversation.hirer == current_user) %>
       <div><%= link_to "go to conversation with owner #{conversation.owner.profile.username}", conversation %></div>
