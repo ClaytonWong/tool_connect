@@ -1,20 +1,22 @@
-<h1>Tool Connect</h1>
-<h2>Connecting the haves with the have nots</h2>
 <nav>
   <% if user_signed_in? %>
     <p>
       <%= link_to 'edit profile', edit_profile_path(current_user.profile), class: 'btn btn-primary' %>
       <%= link_to 'edit account', edit_user_registration_path, class: 'btn btn-primary' %>
     </p>
+
     <p>
       <%= link_to 'sign out', destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
     </p>
+
     <p>
       <%= link_to 'my conversations', conversations_path, class: 'btn btn-success' %>
     </p>
+
     <p>  
       <%= link_to 'see tool listings', tools_path, class: 'btn btn-success' %>
     </p>
+
     <p>
       <%= link_to 'add a tool', new_tool_path, class: 'btn btn-success' %>
     </p>
@@ -23,6 +25,7 @@
       <%= link_to 'sign in', new_user_session_path, class: 'btn btn-primary' %>
       <%= link_to 'sign up', new_user_registration_path, class: 'btn btn-primary' %>
     </p>
+    
     <p>
       <%= link_to 'see tool listings', tools_path, class: 'btn btn-success' %>
     </p>

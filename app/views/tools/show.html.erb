@@ -1,5 +1,36 @@
 <p id="notice"><%= notice %></p>
 
+<nav>
+  <% if user_signed_in? %>
+    <p>
+      <%= link_to 'edit profile', edit_profile_path(current_user.profile), class: 'btn btn-primary' %>
+      <%= link_to 'edit account', edit_user_registration_path, class: 'btn btn-primary' %>
+    </p>
+    
+    <p>
+      <%= link_to 'home', root_path, class: 'btn btn-primary' %>
+      <%= link_to 'sign out', destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
+    </p>
+    
+    <p>
+      <%= link_to 'my conversations', conversations_path, class: 'btn btn-success' %>
+    </p>
+    
+    <p>  
+      <%= link_to 'see tool listings', tools_path, class: 'btn btn-success' %>
+    </p>
+
+    <p>
+      <%= link_to 'add a tool', new_tool_path, class: 'btn btn-success' %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to 'sign in', new_user_session_path, class: 'btn btn-primary' %>
+      <%= link_to 'sign up', new_user_registration_path, class: 'btn btn-primary' %>
+    </p>
+  <% end %>
+</nav>
+
 <figure>
   <% if @tool.image.present? %>
     <%= image_tag @tool.image_url(:original), alt: "Poster for #{@tool.name}" %>
@@ -7,19 +38,17 @@
     <p>No picture</p>
   <% end %>
 </figure>
-
-<% if ((user_signed_in?) && (@tool.owner_id != current_user.id)) %>
-  <!--<%#= link_to 'hire', new_hiring_path(tool_id: @tool.id), class: 'wide btn btn-warning' %>-->
-  <%= link_to 'Message owner', new_conversation_path(hirer_id: current_user.id, owner_id: @tool.owner.id, tool_id: @tool.id), class: 'wide btn btn-success' %>
-<% end %><p>
+<div>Tool details</div>
+<p>
   <strong>Name:</strong>
   <%= @tool.name %>
 </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @tool.description %>
-</p>
+<div>  
+  <%= @tool.owner.profile.state %>
+  <%= @tool.owner.profile.suburb %>
+  <%= @tool.owner.profile.postcode %>
+</div>
 
 <p>
   <strong>Cost of hire cents:</strong>
@@ -27,9 +56,16 @@
 </p>
 
 <p>
-  <strong>Owner:</strong>
-  <%= @tool.owner %>
+  <strong>Description:</strong>
+  <%= @tool.description %>
 </p>
 
-<%= link_to 'Edit', edit_tool_path(@tool) %> |
-<%= link_to 'Back', tools_path %>
+<% if ((user_signed_in?) && (@tool.owner_id == current_user.id)) %>
+  <%= link_to 'Edit', edit_tool_path(@tool), class: 'btn btn-warning' %> 
+  <%= link_to 'Destroy', @tool, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<% end %>
+
+<% if ((user_signed_in?) && (@tool.owner_id != current_user.id)) %>
+  <!--<%#= link_to 'hire', new_hiring_path(tool_id: @tool.id), class: 'wide btn btn-warning' %>-->
+  <%= link_to 'Message owner', new_conversation_path(hirer_id: current_user.id, owner_id: @tool.owner.id, tool_id: @tool.id), class: 'wide btn btn-success' %>
+<% end %>

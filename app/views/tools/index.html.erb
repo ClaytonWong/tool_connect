@@ -1,39 +1,50 @@
 <p id="notice"><%= notice %></p>
+<nav>
+  <% if user_signed_in? %>
+    <p>
+      <%= link_to 'edit profile', edit_profile_path(current_user.profile), class: 'btn btn-primary' %>
+      <%= link_to 'edit account', edit_user_registration_path, class: 'btn btn-primary' %>
+    </p>
+    
+    <p>
+      <%= link_to 'home', root_path, class: 'btn btn-primary' %>
+      <%= link_to 'sign out', destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
+    </p>
+    
+    <p>
+      <%= link_to 'my conversations', conversations_path, class: 'btn btn-success' %>
+    </p>
+    
+    <p>
+      <%= link_to 'add a tool', new_tool_path, class: 'btn btn-success' %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to 'sign in', new_user_session_path, class: 'btn btn-primary' %>
+      <%= link_to 'sign up', new_user_registration_path, class: 'btn btn-primary' %>
+    </p>
+  <% end %>
+</nav>
 
-<h1>Tools</h1>
+<h1>Tool listings</h1>
+  
+<% @tools.each do |tool| %>
+  <div>
+    <%= tool.name %>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Cost of hire cents</th>
-      <th>Owner</th>
-      <th>Image</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div>  
+    <%= tool.owner.profile.state %>
+    <%= tool.owner.profile.suburb %>
+    <%= tool.owner.profile.postcode %>
+  </div>
 
-  <tbody>
-    <% @tools.each do |tool| %>
-      <tr>
-        <td><%= tool.name %></td>
-        <td><%= tool.description %></td>
-        <td><%= tool.cost_of_hire_cents %></td>
-        <td><%= tool.owner %></td>
-        <td>
-          <% if tool.image.present? %>
-            <%= image_tag tool.image_url(:thumb) %>
-          <% end %>
-        </td>
-        <td><%= link_to 'Show', tool %></td>
-        <td><%= link_to 'Edit', edit_tool_path(tool) %></td>
-        <td><%= link_to 'Destroy', tool, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Tool', new_tool_path %>
+  <div> 
+    <%= link_to 'Show', tool, class: 'btn btn-success' %>
+    <% if ((user_signed_in?) && (tool.owner_id == current_user.id)) %>
+      <%= link_to 'Edit', edit_tool_path(tool), class: 'btn btn-warning' %>
+      <%= link_to 'Destroy', tool, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <% end%>
+  </div>
+  <br>
+<% end %>
