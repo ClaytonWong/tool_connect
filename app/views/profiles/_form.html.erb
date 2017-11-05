@@ -10,20 +10,17 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :profile_user_id %>
-  </div>
-
+  
+  <div>* required</div>
+  
   <div class="field">
     <%= form.label :username %>
-    <%= form.text_field :username, id: :profile_username %>
+    <%= form.text_field :username, id: :profile_username %> *
   </div>
 
   <div class="field">
     <%= form.label :family_name %>
-    <%= form.text_field :family_name, id: :profile_family_name %>
+    <%= form.text_field :family_name, id: :profile_family_name %> *
   </div>
 
   <div class="field">
@@ -33,37 +30,37 @@
 
   <div class="field">
     <%= form.label :first_name %>
-    <%= form.text_field :first_name, id: :profile_first_name %>
+    <%= form.text_field :first_name, id: :profile_first_name %> *
   </div>
 
   <div class="field">
     <%= form.label :date_of_birth %>
-    <%= form.date_select :date_of_birth, id: :profile_date_of_birth %>
+    <%= form.date_select :date_of_birth, id: :profile_date_of_birth %> *
   </div>
 
   <div class="field">
     <%= form.label :country %>
-    <%= form.text_field :country, id: :profile_country %>
+    <%= form.text_field :country, id: :profile_country %> *
   </div>
 
   <div class="field">
     <%= form.label :state %>
-    <%= form.text_field :state, id: :profile_state %>
+    <%= form.text_field :state, id: :profile_state %> *
   </div>
 
   <div class="field">
     <%= form.label :postcode %>
-    <%= form.number_field :postcode, id: :profile_postcode %>
+    <%= form.number_field :postcode, id: :profile_postcode %> *
   </div>
 
   <div class="field">
     <%= form.label :suburb %>
-    <%= form.text_field :suburb, id: :profile_suburb %>
+    <%= form.text_field :suburb, id: :profile_suburb %> *
   </div>
 
   <div class="field">
     <%= form.label :street_address %>
-    <%= form.text_field :street_address, id: :profile_street_address %>
+    <%= form.text_field :street_address, id: :profile_street_address %> *
   </div>
 
   <div class="field">
@@ -76,24 +73,18 @@
     <%= form.text_field :unit, id: :profile_unit %>
   </div>
 
-  <div class="field">
-    <%= form.label :longitude %>
-    <%= form.text_field :longitude, id: :profile_longitude %>
-  </div>
-
-  <div class="field">
-    <%= form.label :latitude %>
-    <%= form.text_field :latitude, id: :profile_latitude %>
+  <div>
+    Ph. and mob. number can be the same if you only have one or the other
   </div>
 
   <div class="field">
     <%= form.label :ph_num %>
-    <%= form.text_field :ph_num, id: :profile_ph_num %>
+    <%= form.text_field :ph_num, id: :profile_ph_num %> *
   </div>
 
   <div class="field">
     <%= form.label :mob_num %>
-    <%= form.text_field :mob_num, id: :profile_mob_num %>
+    <%= form.text_field :mob_num, id: :profile_mob_num %> *
   </div>
 
   <div class="actions">
