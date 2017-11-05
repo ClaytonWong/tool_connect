@@ -1,17 +1,59 @@
-<h1>messages index page</h1>
+<nav>
+  <% if user_signed_in? %>
+    <p>
+      <%= link_to 'edit profile', edit_profile_path(current_user.profile), class: 'btn btn-primary' %>
+      <%= link_to 'edit account', edit_user_registration_path, class: 'btn btn-primary' %>
+    </p>
+    
+    <p>
+      <%= link_to 'home', root_path, class: 'btn btn-primary' %>
+      <%= link_to 'sign out', destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
+    </p>
+    
+    <p>
+      <%= link_to 'my conversations', conversations_path, class: 'btn btn-success' %>
+    </p>
+    
+    <p>  
+      <%= link_to 'see tool listings', tools_path, class: 'btn btn-success' %>
+    </p>
 
-<p> Between <%= @conversation.owner.profile.first_name %> & <%= @conversation.hirer.profile.first_name %></p>
+    <p>
+      <%= link_to 'add a tool', new_tool_path, class: 'btn btn-success' %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to 'sign in', new_user_session_path, class: 'btn btn-primary' %>
+      <%= link_to 'sign up', new_user_registration_path, class: 'btn btn-primary' %>
+    </p>
+  <% end %>
+</nav>
+
+<p> Messages from conversation with 
+  <% if current_user == @conversation.owner %>
+    <!-- Say conversation is with the hirer -->
+    <%= @conversation.hirer.profile.username %>
+  <% else%>
+    <!-- Say conversation is with the owner -->
+    <%= @conversation.owner.profile.username %>
+  <% end %>
+</p>
 
 <% @messages.each do |message| %>
   <% if message.content %>
     <% user = User.find(message.user_id) %>
     <div>
-      <strong><%= user.email %></strong> <%= message.created_at %>
+      <%= user.profile.username %>
     </div>
       
     <div>
       <%= message.content %>
     </div>
+
+    <div>
+      <%= message.created_at %>
+    </div>
+    <br>
   <% end %>
 <% end %>
 

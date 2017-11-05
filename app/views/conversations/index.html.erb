@@ -1,6 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Conversations</h1>
+<nav>
+  <% if user_signed_in? %>
+    <p>
+      <%= link_to 'edit profile', edit_profile_path(current_user.profile), class: 'btn btn-primary' %>
+      <%= link_to 'edit account', edit_user_registration_path, class: 'btn btn-primary' %>
+    </p>
+    
+    <p>
+      <%= link_to 'home', root_path, class: 'btn btn-primary' %>
+      <%= link_to 'sign out', destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
+    </p>
+        
+    <p>  
+      <%= link_to 'see tool listings', tools_path, class: 'btn btn-success' %>
+    </p>
+
+    <p>
+      <%= link_to 'add a tool', new_tool_path, class: 'btn btn-success' %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to 'sign in', new_user_session_path, class: 'btn btn-primary' %>
+      <%= link_to 'sign up', new_user_registration_path, class: 'btn btn-primary' %>
+    </p>
+  <% end %>
+</nav>
+
 <!-- 
 Display messages that user is part of, as well as a list of users to message
 -->
@@ -9,36 +35,11 @@ Display messages that user is part of, as well as a list of users to message
 <% else %>  
   <% @conversations.each do |conversation| %>
     <% if (conversation.hirer == current_user) %>
-      <div><%= link_to "Go to conversation with owner #{conversation.owner.profile.username}", conversation %></div>
+      <div><%= link_to "go to conversation with owner #{conversation.owner.profile.username}", conversation %></div>
     <% elsif (conversation.owner == current_user) %>
-      <div><%= link_to "Go to conversation with hirer #{conversation.hirer.profile.username}", conversation %></div>
+      <div><%= link_to "go to conversation with hirer #{conversation.hirer.profile.username}", conversation %></div>
     <% else %>
     <% end %>
+    <br>
   <% end %>
 <% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Owner</th>
-      <th>Hirer</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @conversations.each do |conversation| %>
-      <tr>
-        <td><%= conversation.owner %></td>
-        <td><%= conversation.hirer %></td>
-        <td><%= link_to 'Show', conversation %></td>
-        <td><%= link_to 'Edit', edit_conversation_path(conversation) %></td>
-        <td><%= link_to 'Destroy', conversation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Conversation', new_conversation_path %>
