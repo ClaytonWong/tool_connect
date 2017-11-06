@@ -1,0 +1,9 @@
+<h1>Rentals</h1>
+<% @rentals.each do |rental| %>
+    <div>
+        <h2><%= rental.tool.name %></h2>
+        <%= time_tag rental.created_at %>
+        <%= time_tag rental.start_of_hire %>
+        <%= time_tag rental.end_of_hire %>
+    </div>
+<% end %>

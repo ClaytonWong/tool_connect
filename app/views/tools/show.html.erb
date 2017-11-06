@@ -66,6 +66,6 @@
 <% end %>
 
 <% if ((user_signed_in?) && (@tool.owner_id != current_user.id)) %>
-  <!--<%#= link_to 'hire', new_hiring_path(tool_id: @tool.id), class: 'wide btn btn-warning' %>-->
+  <%= link_to 'hire', new_rental_path(tool_id: @tool.id), class: 'wide btn btn-warning' %>
   <%= link_to 'Message owner', new_conversation_path(hirer_id: current_user.id, owner_id: @tool.owner.id, tool_id: @tool.id), class: 'wide btn btn-success' %>
 <% end %>

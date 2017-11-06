@@ -1,0 +1,71 @@
+[33mcommit b5824f98ce12720ca1c50867b7c6bac275d97d94[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Mon Nov 6 22:01:41 2017 +1100
+
+    Add Rental model
+
+[33mcommit 981dc6174bdd336d66298dfa922009bed86e7fbd[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Mon Nov 6 21:38:14 2017 +1100
+
+    Add stripe.rb to config initializers
+
+[33mcommit 2cdd417366ff09d700aee30feed8550a07830142[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Mon Nov 6 10:16:51 2017 +1100
+
+    Cleaned up code for conversations controller
+
+[33mcommit 300f5c5030ee67ac3788ec8c4eebcd10422cd381[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Mon Nov 6 09:48:38 2017 +1100
+
+    Add Bootstrap buttons to and changed layout for conversation & messages pages
+
+[33mcommit 9d2f56865f46d11281768b87ac6d30e9405a3926[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Sun Nov 5 22:24:43 2017 +1100
+
+    add Bootstrap buttons for tool views, changed layout for tools and profile pages
+
+[33mcommit 47f6c3ce30fede0626f2f682d6656aca65eaa57f[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Sun Nov 5 20:58:41 2017 +1100
+
+    Add Bootstrap buttons to welcome and profile pages
+
+[33mcommit 2ea2c2dffdf9bef3ddfd9db45aba2fae2b70b7b9[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Sun Nov 5 12:50:35 2017 +1100
+
+    Add useful, messaging between users
+
+[33mcommit c3c246c08cbcae5a57b2dd67e9c9ce215db92320[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Sat Nov 4 21:37:49 2017 +1100
+
+    Add Seed file
+
+[33mcommit 84ca40094baca68dc1cb955198def599ebe03712[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Sat Nov 4 18:58:09 2017 +1100
+
+    Add Tool scaffold & image upload
+
+[33mcommit 111c271fc183c8608ca69bd0b36065ef1b488150[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Sat Nov 4 15:22:02 2017 +1100
+
+    Add profile, forced profile creation after sign up
+
+[33mcommit 85bfaadd0ae48ddf7e342a302ec1ea2fe7ad064c[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Sat Nov 4 14:07:29 2017 +1100
+
+    Add basic welcome with Bootstrap
+
+[33mcommit 2d31be4885f19766d57e008171600e4572a4d177[m
+Author: Clayton <c_w_serious-github@yahoo.com.au>
+Date:   Sat Nov 4 13:43:30 2017 +1100
+
+    Add User model, following gems: Devise, Bootstraps, Rspec, rails-erd, Money, Stripe, Mailgun, Shrine, aws-sdk, Countries, Geocoder, dot-env
