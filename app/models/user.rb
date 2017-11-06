@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :tools
   has_many :conversations
   has_many :messages
+  has_many :rentals
 end

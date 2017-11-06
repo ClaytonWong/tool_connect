@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104114411) do
+ActiveRecord::Schema.define(version: 20171106104710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(version: 20171104114411) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "rentals", force: :cascade do |t|
+    t.bigint "tool_id"
+    t.bigint "hirer_id"
+    t.string "charge_identifier"
+    t.datetime "start_of_hire"
+    t.datetime "end_of_hire"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hirer_id"], name: "index_rentals_on_hirer_id"
+    t.index ["tool_id"], name: "index_rentals_on_tool_id"
+  end
+
   create_table "tools", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -91,5 +103,7 @@ ActiveRecord::Schema.define(version: 20171104114411) do
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "rentals", "tools"
+  add_foreign_key "rentals", "users", column: "hirer_id"
   add_foreign_key "tools", "users", column: "owner_id"
 end
