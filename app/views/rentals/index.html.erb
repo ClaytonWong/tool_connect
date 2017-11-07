@@ -1,9 +1,59 @@
-<h1>Rentals</h1>
+<h1>Rentals for:</h1>
 <% @rentals.each do |rental| %>
-    <div>
-        <h2><%= rental.tool.name %></h2>
-        <%= time_tag rental.created_at %>
-        <%= time_tag rental.start_of_hire %>
-        <%= time_tag rental.end_of_hire %>
-    </div>
+  <div>
+    <%= time_tag rental.created_at %>
+  </div>
+<% end %>
+
+<h1>Rent <strong><%= @rental.tool %></strong></h1>
+<h1>Rentals for:</h1>
+
+<!-- Retrieve object for current tool -->
+<% tool = Tool.find(params[:tool_id]) %>
+
+<!-- Print name & description for current tool -->
+<h2><%= tool.name %></h2>
+<div><%= tool.description %></div>
+
+<div>* required </div>
+
+<%= form_with(model: @rental, local: true) do |f| %>
+  <%= f.hidden_field :tool_id %>
+
+  <div class="field">
+    <%= f.label :start_of_hire %>
+    <%= f.datetime_select :start_of_hire, id: :rental_start_of_hire %> *
+    
+  </div>
+  
+  <div class="field">
+    <%= f.label :end_of_hire %>
+    <%= f.datetime_select :end_of_hire, id: :rental_end_of_hire %> *
+    
+  </div>
+  
+  <%= f.hidden_field :tool_id, value: tool.id %>
+
+  <article>
+        <% if flash[:error].present? %>
+            <div id="error_explanation">
+                <p><%= flash[:error] %></p>
+            </div>
+        <% end %>
+        <label class="amount"> 
+            <span>Amount: <%= tool.cost_of_hire_cents %> cents</span>
+        </label>
+    </article>
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-description="<%= tool.name %>"
+            data-email="<%= current_user.email %>"
+            data-amount=<%= tool.cost_of_hire_cents %>
+            data-currency="aud"
+            data-locale="auto"></script>
+
+  <div>
+    <%= f.submit "Rent" %>
+  </div>
+  <%= @rental.start_of_hire%>
 <% end %>
