@@ -60,13 +60,15 @@
   <%= @tool.description %>
 </p>
 
-<% if ((user_signed_in?) && (@tool.owner_id == current_user.id)) %>
+<% if policy(@tool).edit? %>
   <%= link_to 'Edit', edit_tool_path(@tool), class: 'btn btn-warning' %> 
+<% end %>
+
+<% if ((user_signed_in?) && (@tool.owner_id == current_user.id)) %>
   <%= link_to 'Destroy', @tool, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
 <% end %>
 
 <% if ((user_signed_in?) && (@tool.owner_id != current_user.id)) %>
   <%= link_to 'hire', new_rental_path(tool_id: @tool.id), class: 'wide btn btn-warning' %>
-  <%= link_to 'hire2', rentals_path(tool_id: @tool.id), class: 'wide btn btn-warning' %>
   <%= link_to 'Message owner', new_conversation_path(hirer_id: current_user.id, owner_id: @tool.owner.id, tool_id: @tool.id), class: 'wide btn btn-success' %>
 <% end %>

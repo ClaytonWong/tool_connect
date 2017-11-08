@@ -1,12 +1,14 @@
 <h1>Rent <strong><%= @rental.tool.name %></strong></h1>
-<h1>Rentals for:</h1>
+<h1><%= @rental.tool.description %></h1>
+
 <!-- Get the rentals for current tool -->
- 
-  <%  rentals_current_tool = Rental.where(tool_id: params[:tool_id]) %>
-  <%  @rentals = rentals_current_tool %>
+<%  rentals_current_tool = Rental.where(tool_id: params[:tool_id]) %>
+<%  @rentals = rentals_current_tool %>
+
+<!-- show rentals for current tool -->
 <% @rentals.each do |rental| %>
   <div>
-    <%= time_tag rental.created_at %>
+    <%= time_tag rental.start_of_hire %> to <%= time_tag rental.end_of_hire %>
   </div>
 <% end %>
 
@@ -22,13 +24,11 @@
   <div class="field">
     <%= f.label :start_of_hire %>
     <%= f.datetime_select :start_of_hire, id: :rental_start_of_hire %> *
-    
   </div>
   
   <div class="field">
     <%= f.label :end_of_hire %>
     <%= f.datetime_select :end_of_hire, id: :rental_end_of_hire %> *
-    
   </div>
   
   <%= f.hidden_field :tool_id, id: :rental_tool_id %>
@@ -50,9 +50,5 @@
             data-amount=<%= @rental.tool.cost_of_hire_cents %>
             data-currency="aud"
             data-locale="auto"></script>
-
-  <div>
-    <%= f.submit "Rent" %>
-  </div>
-  <%= @rental.start_of_hire%>
+  
 <% end %>

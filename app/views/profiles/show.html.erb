@@ -85,5 +85,8 @@
   <%= @profile.mob_num %>
 </p>
 
-<%= link_to 'Edit', edit_profile_path(@profile), class: 'btn btn-warning' %> 
+<% if policy(@profile).edit? %>
+  <%= link_to 'Edit', edit_profile_path(@profile), class: 'btn btn-warning' %> 
+<% end %>
+
 <%= link_to 'home', root_path, class: 'btn btn-primary' %>

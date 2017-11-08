@@ -41,8 +41,11 @@
 
   <div> 
     <%= link_to 'Show', tool, class: 'btn btn-success' %>
+    <% if policy(@tool).edit? %>
+      <%= link_to 'Edit', edit_tool_path(@tool), class: 'btn btn-warning' %> 
+    <% end %>
+    
     <% if ((user_signed_in?) && (tool.owner_id == current_user.id)) %>
-      <%= link_to 'Edit', edit_tool_path(tool), class: 'btn btn-warning' %>
       <%= link_to 'Destroy', tool, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
     <% end%>
   </div>

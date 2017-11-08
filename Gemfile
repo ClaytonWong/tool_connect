@@ -5,7 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+# Use pundit for authorisation
+gem "pundit"
+#
+gem 'validates_overlap'
 # Geocoding
 gem 'geocoder'
 # Country codes gem
