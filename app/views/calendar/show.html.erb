@@ -13,6 +13,8 @@
     </div>
   </div>
 </div>
+
+<%#rentals_tool1 = Rental.where(tool_id: 1, "start_of_hire >= #{Date.today} OR end_of_hire >= #{Date.today}") %>
 <div class="row">
   <div class="col-md-12">
     <%= calendar @date do |date| %>
@@ -21,7 +23,13 @@
       
       <!-- If date is today or later -->
       <% if (date == Date.today) || ((Date.today <=> date ) == -1) %>
-        <% if %>    
+        <ul>
+          <% @rentals_tool1.each do |rental| %>    
+            <% if (rental.start_of_hire === date) || ((rental.start_of_hire <=> date) == -1) || (rental.end_of_hire === date) || ((rental.end_of_hire <=> date) == -1) %>
+              <li><%= rental.start_of_hire %><%= rental.end_of_hire %></li>
+            <% end %>
+          <% end %>
+        </ul>
       <% end %>
     <% end %>
   </div>

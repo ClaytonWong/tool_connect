@@ -1,21 +1,62 @@
 <h1>Rent <strong><%= @rental.tool.name %></strong></h1>
-<h1><%= @rental.tool.description %></h1>
+<h2><%= @rental.tool.description %></h2>
 
 <!-- Get the rentals for current tool -->
 <%  rentals_current_tool = Rental.where(tool_id: params[:tool_id]) %>
 <%  @rentals = rentals_current_tool %>
 
 <!-- show rentals for current tool -->
-<% @rentals.each do |rental| %>
-  <div>
-    <%= time_tag rental.start_of_hire %> to <%= time_tag rental.end_of_hire %>
+<h2>All rentals</h2>
+  <% @rentals.each do |rental| %>
+    <div>
+      <%= time_tag rental.start_of_hire %> to <%= time_tag rental.end_of_hire %>
+    </div>
+  <% end %>
+
+<h2>Rentals schedule as of today (<%= Date.today %>)</h2>
+<!-- Draw a calendar with ongoing and future rentals for current tool -->
+<% @date = params[:date] ? Date.parse(params[:date]) : Date.today %>
+<% @rentals_for_tool = Rental.where(tool_id: params[:tool_id]) %>
+
+<div class="row">
+  <div class="col-md-12 text-center">
+    <div class="well controls">
+      <%= link_to calendar_path(date: @date - 1.month), class: "btn btn-default" do %>
+        <i class="glyphicon glyphicon-backward"></i>
+      <% end %>
+      <%= "#{@date.strftime("%B")} #{@date.year}" %>
+      <%= link_to calendar_path(date: @date + 1.month), class: "btn btn-default" do %>
+        <i class="glyphicon glyphicon-forward"></i>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>
 
-<!-- Print name & description for current tool -->
-<h2><%= @rental.tool.name %></h2>
-<div><%= @rental.tool.description %></div>
+<%#rentals_tool1 = Rental.where(tool_id: 1, "start_of_hire >= #{Date.today} OR end_of_hire >= #{Date.today}") %>
+<div class="row">
+  <div class="col-md-12">
+    <%= calendar @date do |date| %>
+      
+      <%= date.day %>
+      
+      <!-- If date is today or later -->
+      <% if (date == Date.today) || ((Date.today <=> date ) == -1) %>
+        <ul>
+          <% @rentals_for_tool.each do |rental| %>   
+            <!-- When checking if start_of_hire is same as date on calendar, strip off the time from start_of_hire first, or else -->
+            <!-- Rails could say start_of_hire is not equal to date on calendar even if you have a rental starting on that day, -->
+            <!-- which will cause rails to not show a rental on that day (it's not what we want. We just want to compare dates here) -->
+            <% if ((rental.start_of_hire.to_date <=> date) == 0) || ( ((rental.start_of_hire <=> date) == -1) && ((rental.end_of_hire <=> date) == 1) ) || ((rental.end_of_hire <=> date) == 0) %>
+              <li><%= rental.start_of_hire %><%= rental.end_of_hire %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
+<!-- Draw form for people to put in start datetime and end datetime -->
 <div>* required </div>
 
 <%= form_with(model: @rental, local: true) do |f| %>
@@ -32,7 +73,8 @@
   </div>
   
   <%= f.hidden_field :tool_id, id: :rental_tool_id %>
-
+  
+  <!-- Handle payment -->
   <article>
         <% if flash[:error].present? %>
             <div id="error_explanation">
@@ -40,7 +82,7 @@
             </div>
         <% end %>
         <label class="amount"> 
-            <span>Amount: <%= @rental.tool.cost_of_hire_cents %> cents</span>
+            <span>Amount: <%= format_cents @rental.tool.cost_of_hire_cents %></span>
         </label>
     </article>
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -52,3 +94,4 @@
             data-locale="auto"></script>
   
 <% end %>
+<%= link_to 'cancel', tool_path(@rental.tool), class: 'wide btn btn-warning' %>

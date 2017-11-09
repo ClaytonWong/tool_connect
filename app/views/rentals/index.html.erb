@@ -41,7 +41,7 @@
             </div>
         <% end %>
         <label class="amount"> 
-            <span>Amount: <%= tool.cost_of_hire_cents %> cents</span>
+            <span>Amount: <%= format_cents tool.cost_of_hire_cents %> cents</span>
         </label>
     </article>
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
