@@ -33,11 +33,12 @@ class MessagesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_message
     @message = Message.find(params[:id])
-    authorize @message
+    #authorize @message
   end
 
   def set_conversation
     @conversation = Conversation.find(params[:conversation_id])
+    authorize @conversation, :show?
   end
     
   def message_params

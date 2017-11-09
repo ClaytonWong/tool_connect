@@ -32,12 +32,14 @@
 <% else %>
   <!-- Display conversations that user is part of -->  
   <% @conversations.each do |conversation| %>
-    <% if (conversation.hirer == current_user) %>
-      <div><%= link_to "go to conversation with owner #{conversation.owner.profile.username}", conversation %></div>
-    <% elsif (conversation.owner == current_user) %>
-      <div><%= link_to "go to conversation with hirer #{conversation.hirer.profile.username}", conversation %></div>
-    <% else %>
-    <% end %>
-    <br>
+    <% if policy(conversation).show? %>
+      <% if (conversation.hirer == current_user) %>
+        <div><%= link_to "go to conversation with owner #{conversation.owner.profile.username}", conversation %></div>
+      <% elsif (conversation.owner == current_user) %>
+        <div><%= link_to "go to conversation with hirer #{conversation.hirer.profile.username}", conversation %></div>
+      <% else %>
+      <% end %>
+      <br>
+    <%end%>
   <% end %>
 <% end %>
